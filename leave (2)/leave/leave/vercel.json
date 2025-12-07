@@ -1,0 +1,29 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "search-engine-frontend/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "search-engine-frontend/dist"
+      }
+    },
+    {
+      "src": "SearchEngine.Api/SearchEngine.Api.csproj",
+      "use": "@vercel/dotnet"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "SearchEngine.Api/api/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "search-engine-frontend/$1"
+    }
+  ],
+  "env": {
+    "ASPNETCORE_ENVIRONMENT": "Production"
+  }
+}
